@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -41,10 +43,6 @@ class _ModifyScreenState extends State<ModifyScreen> {
         title: Text('Edit Text'),
         actions: [
           IconButton(
-            icon: Icon(Icons.image),
-            onPressed: _pickImage,
-          ),
-          IconButton(
             icon: Icon(Icons.save),
             onPressed: _saveDocument,
           ),
@@ -61,12 +59,22 @@ class _ModifyScreenState extends State<ModifyScreen> {
         ),
         child: Column(
           children: [
-            const quill.QuillToolbar(),
+             quill.QuillToolbar(
+              configurations: quill.QuillToolbarConfigurations(
+                embedButtons: FlutterQuillEmbeds.toolbarButtons(
+                  imageButtonOptions: QuillToolbarImageButtonOptions(),
+                ),
+              ),
+            ),
             Expanded(
               child: quill.QuillEditor.basic(
-                  configurations: const quill.QuillEditorConfigurations(
+                  configurations:  quill.QuillEditorConfigurations(
+                    padding: const EdgeInsets.all(16),
+                    embedBuilders: kIsWeb ? FlutterQuillEmbeds.editorWebBuilders() : FlutterQuillEmbeds.editorBuilders(),
                     readOnly: false,
                     scrollable: true,
+                    expands: false,
+                    autoFocus: false,
                   )
               ),
             ),
