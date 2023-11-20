@@ -21,6 +21,12 @@ class _ModifyScreenState extends State<ModifyScreen> {
     _loadDocument();
   }
 
+  void _resetDocument() {
+    setState(() {
+      _controller = quill.QuillController.basic();
+    });
+  }
+
   Future<void> _loadDocument() async {
     final prefs = await SharedPreferences.getInstance();
     final String? savedJson = prefs.getString('saved_document');
@@ -42,6 +48,10 @@ class _ModifyScreenState extends State<ModifyScreen> {
       appBar: AppBar(
         title: Text('Edit Text'),
         actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: _resetDocument,
+          ),
           IconButton(
             icon: Icon(Icons.save),
             onPressed: _saveDocument,
