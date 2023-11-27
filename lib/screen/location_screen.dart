@@ -79,6 +79,14 @@ class _LocalScreenState extends State<LocalScreen> {
                             color: my_color.whiteone,
                           ),
                         ),
+                        Text(
+                          '카테고리:카페',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.normal,
+                            color: my_color.whiteone,
+                          ),
+                        ),
                         SizedBox(height: 20.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

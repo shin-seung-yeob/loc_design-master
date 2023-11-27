@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -13,7 +12,6 @@ class ModifyScreen extends StatefulWidget {
 
 class _ModifyScreenState extends State<ModifyScreen> {
   quill.QuillController? _controller;
-  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
@@ -92,18 +90,6 @@ class _ModifyScreenState extends State<ModifyScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> _pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-    if (image != null) {
-      final String imageUrl = image.path;
-
-      final index = _controller!.selection.baseOffset;
-      final length = _controller!.selection.extentOffset;
-      _controller!.replaceText(index, length, quill.BlockEmbed.image(imageUrl), null);
-    }
   }
 
   void _saveDocument() async {
